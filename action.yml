@@ -1,0 +1,29 @@
+name: 'bark-action'
+description: '发送 bark 通知'
+author: 'junbaor <junbaor@gmail.com>'
+branding:
+  icon: message-square
+  color: blue
+
+inputs:
+  address:
+    description: 'bark 服务端地址, 例如'
+    required: true
+  title:
+    description: '消息标题'
+    required: true
+  content:
+    description: '消息内容'
+    required: true
+  url:
+    description: '跳转地址'
+    required: false
+  group:
+    description: '消息分组'
+    required: false
+
+runs:
+  using: 'composite'
+  steps:
+    - run: curl ${{ inputs.address }}/${{ inputs.title }}/${{ inputs.content }}?url=${{ inputs.url }}&group=${{ inputs.group}}
+      shell: bash
